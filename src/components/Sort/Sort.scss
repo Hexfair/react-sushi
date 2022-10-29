@@ -1,0 +1,68 @@
+@import "../../scss/custom.scss";
+
+.sort {
+	padding: 20px;
+	font-size: 20px;
+	position: relative;
+	@media (max-width: 960px) {
+		font-size: 16px;
+	}
+	@media (max-width: 800px) {
+		padding: 20px 15px;
+	}
+	@media (max-width: 500px) {
+		padding: 20px 10px;
+		font-size: 15px;
+	}
+
+	&__label {
+		font-weight: 900;
+	}
+
+	&__text {
+		display: inline-block;
+		font-weight: 400;
+		color: red;
+		margin-left: 15px;
+		border-bottom: 1px dashed red;
+		cursor: pointer;
+	}
+
+	&__popup {
+		background-color: white;
+		width: 200px;
+		border: 1px solid $subMain;
+		border-radius: 4px;
+		position: absolute;
+		left: 200px;
+		display: none;
+		box-shadow: 0px 0px 11px 0px rgba(251, 179, 157, 0.25);
+		z-index: 1;
+		&.active {
+			display: block;
+		}
+		@media (max-width: 960px) {
+			left: 170px;
+		}
+		@media (max-width: 500px) {
+			left: 155px;
+		}
+		@media (max-width: 390px) {
+			left: 90px;
+		}
+	}
+
+	li {
+		font-size: 16px;
+		padding: 7px;
+		cursor: pointer;
+		transition: all 0.2s ease-out;
+		&.active {
+			color: red;
+			font-weight: 600;
+		}
+		&:hover {
+			background-color: $main;
+		}
+	}
+}

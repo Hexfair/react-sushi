@@ -1,0 +1,106 @@
+@import "../../scss/custom.scss";
+
+.filter {
+	border-bottom: 2px solid $main;
+	padding: 20px;
+	@media (max-width: 800px) {
+		padding: 20px 15px;
+	}
+	@media (max-width: 500px) {
+		padding: 20px 10px;
+	}
+
+	&__row {
+		display: flex;
+		justify-content: space-between;
+		@media (max-width: 780px) {
+			flex-wrap: wrap;
+			justify-content: center;
+		}
+	}
+
+	&__type {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		@media (max-width: 780px) {
+			margin-bottom: 15px;
+		}
+	}
+
+
+	&__search {
+		width: 100%;
+		max-width: 300px;
+		margin-left: 20px;
+		@media (max-width: 780px) {
+			margin-left: 0px;
+		}
+	}
+}
+
+.type-filter {
+	font-size: 20px;
+	@media (max-width: 960px) {
+		font-size: 16px;
+	}
+	@media (max-width: 700px) {
+		width: 500px;
+		overflow-x: scroll;
+	}
+	@media (max-width: 500px) {
+		font-size: 15px;
+	}
+
+	&__lable {
+		font-weight: 900;
+	}
+
+	&__list {
+		display: flex;
+		align-items: center;
+	}
+
+	li {
+		margin-left: 20px;
+		color: $grey;
+		text-decoration: underline;
+		padding: 8px;
+		border: 1px solid transparent;
+		cursor: pointer;
+		&.active {
+			background-color: $main;
+			border: 1px solid $subMain;
+			border-radius: 10px;
+			color: #000;
+			text-decoration: none;
+		}
+
+		@media (max-width: 960px) {
+			margin-left: 15px;
+		}
+	}
+}
+
+.search-filter {
+position: relative;
+	&__input {
+		border: 2px solid $subMain;
+		border-radius: 5px;
+		padding: 8px 10px;
+		width: 100%;
+		font-size: 15px;
+		&:focus {
+			border: 2px solid $color;
+		}
+	}
+
+	&__icon {
+		position: absolute;
+		width: 18px;
+		height: 18px;
+		top: calc(50% - 9px);
+		right: 10px;
+		opacity: 0.7;
+	}
+}
