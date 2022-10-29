@@ -2,6 +2,10 @@
 
 .item-content {
 	position: relative;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	height: 100%;
 			&__hot {
 				position: absolute;
 				top: 10px;
@@ -11,6 +15,7 @@
 			&__image {
 				img {
 					width: 280px;
+					object-fit: cover;
 				}
 			}
 	
@@ -19,6 +24,7 @@
 				letter-spacing: 2px;
 				font-weight: 700;
 				margin-bottom: 20px;
+				flex: auto;
 			}
 	
 			&__options {
@@ -64,6 +70,7 @@
 			}
 	}
 	.button-item {
+		max-width: 250px;
 		background-color: $main;
 		border-radius: 10px;
 		padding: 8px 20px;

@@ -4,7 +4,6 @@ import "./SushiItem.scss";
 
 
 const SushiItem = ({ id, imageUrl, title, price, category, popularity, hot }) => {
-
 	return (
 		<div className='content__item item-content'>
 			<div className='item-content'>

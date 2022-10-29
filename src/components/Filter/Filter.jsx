@@ -1,13 +1,12 @@
 import React from "react";
 import "./Filter.scss";
 
-const filterNames = ['Все', 'Классические', 'Острые', 'Запеченные', 'Эконом'];
+const filterData = ['Все', 'Классические', 'Острые', 'Запеченные', 'Эконом'];
 
-const Filter = () => {
+const Filter = ({ value, setCategoryType }) => {
 
-	const [activeFilter, setActiveFilter] = React.useState('Все');
 	const onClickChangeFilter = (index) => {
-		setActiveFilter(filterNames[index])
+		setCategoryType(index);
 	}
 
 	return (
@@ -16,8 +15,8 @@ const Filter = () => {
 				<div className='filter__type type-filter'>
 					<div className='type-filter__lable'>Фильтр:</div>
 					<ul className='type-filter__list'>
-						{filterNames.map((obj, index) => (
-							<li key={index} className={obj === activeFilter ? 'active' : ''} onClick={() => { onClickChangeFilter(index) }}>{obj}</li>
+						{filterData.map((obj, index) => (
+							<li key={index} className={value === index ? 'active' : ''} onClick={() => { onClickChangeFilter(index) }}>{obj}</li>
 						))}
 					</ul>
 				</div>
