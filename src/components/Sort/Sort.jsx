@@ -1,6 +1,9 @@
 import React from "react";
 import "./Sort.scss";
 import cn from 'classnames';
+import { setSortFilter } from "../../redux/filter/slice";
+import { useDispatch, useSelector } from "react-redux";
+//=========================================================================================================================
 
 const sortData = [
 	{ name: 'названию', sortValue: 'title' },
@@ -8,25 +11,37 @@ const sortData = [
 	{ name: 'цене', sortValue: 'price' },
 ];
 
-const Sort = ({ value, setSortType }) => {
+//=========================================================================================================================
+const Sort = () => {
+	const dispatch = useDispatch();
+	const { sortFilter } = useSelector(state => state.filter);
 
-	const [openPopup, setOpenPopup] = React.useState(false);
-	const onClickOpenPopup = () => {
-		setOpenPopup(!openPopup);
-	}
+	const [openPopup, setOpenPopup] = React.useState(false);	// Отктрытие попапа
+	const onClickOpenPopup = () => { setOpenPopup(!openPopup) };
 
-	const onClickChangeSort = (obj) => {
-		setSortType(obj);
+	const onClickChangeSort = (obj) => {											// Диспатч выбранной сортировки в редакс и закрытие попапа
+		dispatch(setSortFilter(obj));
 		setOpenPopup(false);
 	}
 
+	const sortRef = React.useRef(null);		// Закрытие попапа при нажатии вне попапа
+	React.useEffect(() => {
+		const handleClickOutside = (event) => {
+			if (!event.path.includes(sortRef.current)) {
+				setOpenPopup(false);
+			}
+		}
+		document.body.addEventListener('click', handleClickOutside);
+		return () => document.body.removeEventListener('click', handleClickOutside);
+	}, [])
+
 	return (
-		<div className='sort'>
-			<div className='sort__label'>Сортировать по: <span className='sort__text' onClick={onClickOpenPopup}>{value.name}</span></div>
+		<div ref={sortRef} className='sort'>
+			<div className='sort__label'>Сортировать по: <span className='sort__text' onClick={onClickOpenPopup}>{sortFilter.name}</span></div>
 			<div className={cn('sort__popup', { 'active': openPopup })}>
 				<ul className='sort__list'>
 					{sortData.map((obj, index) => (
-						<li key={index} className={obj.sortValue === value.sortValue ? 'active' : ''} onClick={() => { onClickChangeSort(obj) }}>{obj.name}</li>
+						<li key={index} className={obj.name === sortFilter.name ? 'active' : ''} onClick={() => { onClickChangeSort(obj) }}>{obj.name}</li>
 					))}
 				</ul>
 			</div>

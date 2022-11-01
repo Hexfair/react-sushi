@@ -4,15 +4,12 @@ import SearchFilter from "./SearchFilter";
 import "./Filter.scss";
 
 
-const Filter = ({ categoryFilter, onClickChangeFilter }) => {
+const Filter = () => {
 
 	return (
 		<div className='filter'>
 			<div className='filter__row'>
-				<CategoryFilter
-					categoryFilter={categoryFilter}
-					onClickChangeFilter={(index) => { onClickChangeFilter(index) }}
-				/>
+				<CategoryFilter />
 				<SearchFilter />
 			</div>
 		</div>

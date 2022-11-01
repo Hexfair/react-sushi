@@ -5,32 +5,22 @@ import SushiItem from "../components/SushiItem/SushiItem";
 import SushiSkeleton from "../components/SushiItem/SushiSkeleton";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchSushies } from "../redux/sushi/slice";
-import { setCategoryFilter } from "../redux/filter/slice";
 //=========================================================================================================================
 
 const Home = () => {
 
 	const dispatch = useDispatch();
-	const { items } = useSelector(state => state.sushi);
+	const { items, status } = useSelector(state => state.sushi);
 	const { sortFilter, searchFilter, categoryFilter } = useSelector(state => state.filter);
 
-	const [isLoading, setIsLoading] = React.useState(true);
 
-	const [sortType, setSortType] = React.useState({ name: 'популярности', sortValue: 'popularity' });
-	const onChangeSort = (obj) => {
-		setSortType(obj);
-	}
 
-	const onClickChangeFilter = (index) => {
-		dispatch(setCategoryFilter(index));
-	}
 
 	React.useEffect(() => {
 		const categoryQuery = categoryFilter > 0 ? `category=${categoryFilter}` : '';
 		const sortQuery = `&sortBy=${sortFilter.sortValue}`;
 		const searchQuery = searchFilter ? `&search=${searchFilter}` : '';
 		dispatch(fetchSushies({ categoryQuery, sortQuery, searchQuery }));
-		setIsLoading(false);
 	}, [categoryFilter, sortFilter, searchFilter])
 
 	// React.useEffect(() => {
@@ -56,17 +46,14 @@ const Home = () => {
 
 	return (
 		<>
-			<Filter
-				categoryFilter={categoryFilter}
-				onClickChangeFilter={(index) => { onClickChangeFilter(index) }}
-			/>
+			<Filter />
 			<Sort
-				value={sortType}
-				setSortType={(obj) => { onChangeSort(obj) }}
+			//value={sortType}
+			//setSortType={(obj) => { onChangeSort(obj) }}
 			/>
 			<div className='content'>
 				<div className='content__body'>
-					{isLoading ? skeletons : sushies}
+					{status === 'loading' ? skeletons : sushies}
 				</div>
 			</div>
 		</>
