@@ -1,14 +1,15 @@
 import React from "react";
 import logo from "../../assets/logo.png";
 import "./Header.scss";
+import { Link } from "react-router-dom";
 
 const Header = () => {
 	return (
 		<div className='header'>
 			<div className='header__body'>
-				<div className='header__logo'>
+				<Link to="/" className='header__logo'>
 					<img src={logo} alt='Логотип' />
-				</div>
+				</Link>
 				<div className='header__title'>SUSHI PARTY</div>
 				<button className='header__button'>
 					<svg className='header__button--cart' viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="#756868" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">

@@ -1,10 +1,14 @@
 import React from "react";
+import qs from "qs";
+import { useNavigate } from "react-router";
 import Filter from "../components/Filter/Filter";
 import Sort from "../components/Sort/Sort";
 import SushiItem from "../components/SushiItem/SushiItem";
 import SushiSkeleton from "../components/SushiItem/SushiSkeleton";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchSushies } from "../redux/sushi/slice";
+import { setAllFilter } from "../redux/filter/slice";
+import { sortData } from "../components/Sort/Sort";
 //=========================================================================================================================
 
 const Home = () => {
@@ -13,33 +17,46 @@ const Home = () => {
 	const { items, status } = useSelector(state => state.sushi);
 	const { sortFilter, searchFilter, categoryFilter } = useSelector(state => state.filter);
 
+	const isSearch = React.useRef(false);
+	const isMounted = React.useRef(false);
 
-
-
+	/* Получаем параметры из редакса (сортировка, фильтрация), делаем из них строчку и вшиваем в адресную строку браузера */
+	const navigate = useNavigate();
 	React.useEffect(() => {
-		const categoryQuery = categoryFilter > 0 ? `category=${categoryFilter}` : '';
-		const sortQuery = `&sortBy=${sortFilter.sortValue}`;
-		const searchQuery = searchFilter ? `&search=${searchFilter}` : '';
-		dispatch(fetchSushies({ categoryQuery, sortQuery, searchQuery }));
+		if (isMounted.current) {
+			const queryString = qs.stringify({
+				sortProperty: sortFilter.sortValue,
+				categoryProperty: categoryFilter,
+			});
+			navigate(`?${queryString}`);
+		}
+		isMounted.current = true;
+	}, [categoryFilter, sortFilter])
+
+	/* Получаем параметры из строки браузера (сортировка, фильтрация) и диспатчим их в редакс */
+	React.useEffect(() => {
+		if (window.location.search) {
+			const params = qs.parse(window.location.search.substring(1));
+			const sort = sortData.find(obj => obj.sortValue === params.sortProperty)
+			dispatch(setAllFilter({
+				...params,
+				sort
+			}))
+			isSearch.current = true;
+		}
+	}, [])
+
+	/* Основной запрос суши с бэкенда */
+	React.useEffect(() => {
+		if (!isSearch.current) {
+			const categoryQuery = categoryFilter > 0 ? `category=${categoryFilter}` : '';
+			const sortQuery = `&sortBy=${sortFilter.sortValue}`;
+			const searchQuery = searchFilter ? `&search=${searchFilter}` : '';
+			dispatch(fetchSushies({ categoryQuery, sortQuery, searchQuery }));
+		}
+		isSearch.current = false;
 	}, [categoryFilter, sortFilter, searchFilter])
 
-	// React.useEffect(() => {
-	// 	setIsLoading(true);
-	// 	async function getSushi() {
-	// 		try {
-	// 			//const categoryQuery = categoryType > 0 ? `category=${categoryType}` : '';
-	// 			//const sortQuery = `&sortBy=${sortType.sortValue}`;
-	// 			//const searchQuery = searchType ? `&search=${searchType}` : '';
-
-	// 			const response = await axios.get(`https://6359b1f538725a1746b65927.mockapi.io/sushi?${categoryQuery}${sortQuery}${searchQuery}`);
-	// 			dispatch(setItems(response.data));
-	// 			setIsLoading(false);
-	// 		} catch (error) {
-	// 			console.error(error);
-	// 		}
-	// 	}
-	// 	getSushi();
-	// }, [categoryType, sortType, searchType]);
 
 	const sushies = items.map((obj, index) => (<SushiItem key={obj.id} {...obj} />))
 	const skeletons = [...new Array(6)].map((_, index) => <SushiSkeleton key={index} />);
@@ -47,10 +64,7 @@ const Home = () => {
 	return (
 		<>
 			<Filter />
-			<Sort
-			//value={sortType}
-			//setSortType={(obj) => { onChangeSort(obj) }}
-			/>
+			<Sort />
 			<div className='content'>
 				<div className='content__body'>
 					{status === 'loading' ? skeletons : sushies}

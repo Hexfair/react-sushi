@@ -5,7 +5,7 @@ import { setSortFilter } from "../../redux/filter/slice";
 import { useDispatch, useSelector } from "react-redux";
 //=========================================================================================================================
 
-const sortData = [
+export const sortData = [
 	{ name: 'названию', sortValue: 'title' },
 	{ name: 'популярности', sortValue: 'popularity' },
 	{ name: 'цене', sortValue: 'price' },
