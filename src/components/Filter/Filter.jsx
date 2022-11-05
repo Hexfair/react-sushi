@@ -2,7 +2,7 @@ import React from "react";
 import CategoryFilter from "./CategoryFilter";
 import SearchFilter from "./SearchFilter";
 import "./Filter.scss";
-
+//=========================================================================================================================
 
 const Filter = () => {
 

@@ -1,5 +1,5 @@
 import React from "react";
-import { setCategoryFilter } from "../../redux/filter/slice";
+import { setCategoryFilter } from "../../redux/filterSlice";
 import { useDispatch, useSelector } from "react-redux";
 //=========================================================================================================================
 

@@ -1,0 +1,53 @@
+@import "../../scss/custom.scss";
+
+
+.cart-empty {
+	max-width: 1200px;
+	margin: 0 auto;
+	text-align: center;
+	padding: 70px;
+
+	&__title {
+		font-size: 34px;
+		font-weight: 900;
+		margin-bottom: 25px;
+	}
+
+	&__text {
+		font-size: 24px;
+	}
+
+	&__image {
+		img {
+			max-width: 500px;
+		}
+	}
+
+	&__back {
+		margin: 0 auto;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		width: 150px;
+		height: 35px;
+		transition: all 0.3s ease-out;
+		background-color: $main;
+		border: 1px solid $subMain;
+		border-radius: 20px;
+		transition: all 0.3s ease-out;
+		color: $grey;
+		font-weight: 600;
+
+		&:hover {
+			background-color: $subMain;
+
+			span {
+				color: #000;
+			}
+		}
+
+		&:active {
+			transform: translateY(4px);
+		}
+	}
+}

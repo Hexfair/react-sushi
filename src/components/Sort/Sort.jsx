@@ -1,7 +1,7 @@
 import React from "react";
 import "./Sort.scss";
 import cn from 'classnames';
-import { setSortFilter } from "../../redux/filter/slice";
+import { setSortFilter } from "../../redux/filterSlice";
 import { useDispatch, useSelector } from "react-redux";
 //=========================================================================================================================
 

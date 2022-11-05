@@ -1,14 +1,14 @@
 import React from "react";
 import qs from "qs";
 import { useNavigate } from "react-router";
-import Filter from "../components/Filter/Filter";
-import Sort from "../components/Sort/Sort";
-import SushiItem from "../components/SushiItem/SushiItem";
-import SushiSkeleton from "../components/SushiItem/SushiSkeleton";
+import Filter from "../../components/Filter/Filter";
+import Sort from "../../components/Sort/Sort";
+import SushiItem from "../../components/SushiItem/SushiItem";
+import SushiSkeleton from "../../components/SushiItem/SushiSkeleton";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchSushies } from "../redux/sushi/slice";
-import { setAllFilter } from "../redux/filter/slice";
-import { sortData } from "../components/Sort/Sort";
+import { fetchSushies } from "../../redux/sushiSlice";
+import { setAllFilter } from "../../redux/filterSlice";
+import { sortData } from "../../components/Sort/Sort";
 //=========================================================================================================================
 
 const Home = () => {

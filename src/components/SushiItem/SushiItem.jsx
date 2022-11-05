@@ -1,9 +1,38 @@
 import React from "react";
 import "./SushiItem.scss";
+import { useDispatch, useSelector } from "react-redux";
+import { addCartItem } from "../../redux/cartSlice";
+import cn from 'classnames';
+//=========================================================================================================================
 
+export const typeNames = ['6 шт.', '8 шт.'];
 
-
+//=========================================================================================================================
 const SushiItem = ({ id, imageUrl, title, price, category, popularity, hot }) => {
+	const dispatch = useDispatch();
+	const [activeType, setActiveType] = React.useState(0);
+
+	const onClickAddItem = () => {
+		const payload = {
+			id,
+			imageUrl,
+			title,
+			sushiPrice,
+			activeType
+		};
+		dispatch(addCartItem(payload))
+	}
+
+	const incPrice = Math.round(price * 1.3);
+	let sushiPrice = 0;
+	if (activeType === 0) {
+		sushiPrice = price
+	} else {
+		sushiPrice = incPrice
+	}
+
+	const itemsForCount = useSelector((state) => state.cart.items.filter(obj => obj.id === id));
+	const sushiesCount = itemsForCount.reduce((sum, obj) => (obj.count + sum), 0);
 
 	return (
 		<div className='content__item item-content'>
@@ -18,18 +47,21 @@ const SushiItem = ({ id, imageUrl, title, price, category, popularity, hot }) =>
 				</div>
 				<div className='item-content__lable'>{title}</div>
 				<div className='item-content__options options-item'>
-					<div className='options-item__count'>
-						<button className='options-item__count--six active'>6 шт.</button>
-						<button className='options-item__count--eight'>8 шт.</button>
-					</div>
-					<div className='options-item__price'>{price} руб.</div>
+					{typeNames.map((obj, index) => (
+						<button
+							key={index}
+							onClick={() => setActiveType(index)}
+							className={cn('options-item__count', { 'active': index === activeType })}>
+							{obj}
+						</button>
+					))}
+					<div className='options-item__price'>{sushiPrice} руб.</div>
 				</div>
-				<button className='item-content__button button-item'>
+				<button onClick={onClickAddItem} className='item-content__button button-item'>
 					<span className='button-item__add'>Добавить в корзину</span>
-					<span className='button-item__quantity'>2</span>
+					{sushiesCount > 0 && <span className='button-item__quantity'>{sushiesCount}</span>}
 				</button>
 			</div>
-
 		</div>
 	)
 }

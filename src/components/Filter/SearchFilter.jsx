@@ -1,7 +1,8 @@
 import React from "react";
 import { useDispatch } from "react-redux";
-import { setSearchFilter } from "../../redux/filter/slice";
+import { setSearchFilter } from "../../redux/filterSlice";
 import debounce from "lodash.debounce";
+//=========================================================================================================================
 
 const SearchFilter = () => {
 	const dispatch = useDispatch();
