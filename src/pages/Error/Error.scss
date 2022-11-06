@@ -1,7 +1,6 @@
 @import "../../scss/custom.scss";
 
-
-.cart-empty {
+.error {
 	max-width: 1200px;
 	margin: 0 auto;
 	text-align: center;
@@ -15,11 +14,15 @@
 
 	&__text {
 		font-size: 24px;
+		margin-bottom: 30px;
+
 	}
 
 	&__image {
+		margin-bottom: 30px;
+
 		img {
-			max-width: 500px;
+			max-width: 450px;
 		}
 	}
 
@@ -28,7 +31,7 @@
 		display: flex;
 		justify-content: center;
 		align-items: center;
-		width: 150px;
+		width: 190px;
 		height: 35px;
 		transition: all 0.3s ease-out;
 		background-color: $main;

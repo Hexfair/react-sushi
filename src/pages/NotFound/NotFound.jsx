@@ -1,11 +1,11 @@
 import React from "react";
-import "./NotFound.scss";
+import Error from "../Error/Error";
+import image from "../../assets/not-found.png";
 //=========================================================================================================================
 
 const NotFound = () => {
-	return (
-		<div>NotFound</div>
-	)
+	const title = 'Страница не существует...:('
+	return <Error title={title} image={image} />
 }
 
 export default NotFound;

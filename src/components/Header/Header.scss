@@ -51,7 +51,7 @@
 		}
 
 		@media (max-width: 500px) {
-			font-size: 22px;
+			font-size: 20px;
 			letter-spacing: normal;
 		}
 	}
@@ -66,10 +66,15 @@
 		border-radius: 10px;
 		transition: all 0.3s ease-out;
 
+		@media (max-width: 500px) {
+			padding: 6px;
+		}
+
 		&--price {
 			color: $grey;
 			font-size: 18px;
 			margin-left: 10px;
+			min-width: 80px;
 
 			@media (max-width: 800px) {
 				font-size: 14px;
@@ -78,7 +83,8 @@
 
 			@media (max-width: 500px) {
 				font-size: 14px;
-				margin-left: 3px;
+				margin-left: 4px;
+				min-width: 0px;
 			}
 		}
 
@@ -90,6 +96,7 @@
 			}
 
 			@media (max-width: 500px) {
+				width: 16px;
 				font-size: 14px;
 			}
 		}

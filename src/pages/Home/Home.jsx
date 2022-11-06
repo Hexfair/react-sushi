@@ -9,6 +9,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchSushies } from "../../redux/sushiSlice";
 import { setAllFilter } from "../../redux/filterSlice";
 import { sortData } from "../../components/Sort/Sort";
+import image from "../../assets/home-error.png";
+import Error from "../Error/Error";
 //=========================================================================================================================
 
 const Home = () => {
@@ -57,9 +59,13 @@ const Home = () => {
 		isSearch.current = false;
 	}, [categoryFilter, sortFilter, searchFilter])
 
-
 	const sushies = items.map((obj, index) => (<SushiItem key={obj.id} {...obj} />))
 	const skeletons = [...new Array(6)].map((_, index) => <SushiSkeleton key={index} />);
+
+	if (status === 'error') {
+		const title = 'Ошибка загрузки данных с сервера...:('
+		return <Error title={title} image={image} />
+	}
 
 	return (
 		<>

@@ -2,9 +2,10 @@ import React from "react";
 import SushiItemCart from "../../components/SushiItemCart/SushiItemCart";
 import { useSelector, useDispatch } from "react-redux";
 import { clearCart } from "../../redux/cartSlice";
-import CartEmpty from "../../components/CartEmpty/CartEmpty";
+import Error from "../Error/Error";
 import { Link } from "react-router-dom";
 import "./Cart.scss";
+import image from "../../assets/cart-empty.png"
 //=========================================================================================================================
 
 const Cart = () => {
@@ -16,7 +17,8 @@ const Cart = () => {
 	}
 
 	if (!totalPrice) {			// Возвращаем компонент Пустая корзина, если там ничего нет
-		return <CartEmpty />
+		const title = 'Ваша корзина пуста...:('
+		return <Error title={title} image={image} />
 	}
 
 	return (
