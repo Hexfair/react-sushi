@@ -11,6 +11,8 @@ import { setAllFilter } from "../../redux/filterSlice";
 import { sortData } from "../../components/Sort/Sort";
 import image from "../../assets/home-error.png";
 import Error from "../Error/Error";
+import { useWhyDidYouUpdate } from 'ahooks';
+
 //=========================================================================================================================
 
 const Home = () => {
@@ -50,6 +52,7 @@ const Home = () => {
 
 	/* Основной запрос суши с бэкенда */
 	React.useEffect(() => {
+		window.scrollTo(0, 0);
 		if (!isSearch.current) {
 			const categoryQuery = categoryFilter > 0 ? `category=${categoryFilter}` : '';
 			const sortQuery = `&sortBy=${sortFilter.sortValue}`;
@@ -63,9 +66,10 @@ const Home = () => {
 	const skeletons = [...new Array(6)].map((_, index) => <SushiSkeleton key={index} />);
 
 	if (status === 'error') {
-		const title = 'Ошибка загрузки данных с сервера...:('
+		const title = 'Ошибка загрузки данных с сервера... :('
 		return <Error title={title} image={image} />
 	}
+
 
 	return (
 		<>

@@ -59,7 +59,7 @@ const FullSushi = () => {
 	}
 
 	if (status === 'error') {
-		const title = 'Ошибка загрузки данных...:('
+		const title = 'Ошибка загрузки данных... :('
 		return <Error title={title} image={image} />
 	}
 

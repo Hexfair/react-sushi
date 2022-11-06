@@ -144,6 +144,11 @@
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
+
+		@media (max-width: 540px) {
+			width: 100%;
+			max-width: 270px;
+		}
 	}
 
 	&__button {
@@ -241,7 +246,8 @@
 
 	&__description {
 		margin-left: 10px;
-		max-width: 200px;
+		//max-width: 200px;
+		flex: 100%;
 
 		@media (max-width: 800px) {
 			max-width: 150px;

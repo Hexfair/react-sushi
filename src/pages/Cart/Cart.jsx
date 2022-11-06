@@ -17,7 +17,7 @@ const Cart = () => {
 	}
 
 	if (!totalPrice) {			// Возвращаем компонент Пустая корзина, если там ничего нет
-		const title = 'Ваша корзина пуста...:('
+		const title = 'Ваша корзина пуста... :('
 		return <Error title={title} image={image} />
 	}
 

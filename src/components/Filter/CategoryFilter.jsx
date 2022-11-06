@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 const filterData = ['Все', 'Классические', 'Острые', 'Запеченные', 'Эконом'];
 
-const CategoryFilter = () => {
+const CategoryFilter = (props) => {
 	const dispatch = useDispatch();
 	const { categoryFilter } = useSelector(state => state.filter);
 

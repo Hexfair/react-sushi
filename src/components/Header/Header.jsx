@@ -7,7 +7,17 @@ import { useSelector } from "react-redux";
 
 const Header = () => {
 
-	const { totalPrice } = useSelector(state => state.cart);
+	const { items, totalPrice } = useSelector(state => state.cart);
+
+	// Сохранение суши в localStorage
+	const isMounted = React.useRef(false);
+	React.useEffect(() => {
+		if (isMounted.current) {
+			const json = JSON.stringify(items);
+			localStorage.setItem('cart', json)
+		};
+		isMounted.current = true;
+	}, [items]);
 
 	return (
 		<div className='header'>

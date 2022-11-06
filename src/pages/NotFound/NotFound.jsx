@@ -4,7 +4,7 @@ import image from "../../assets/not-found.png";
 //=========================================================================================================================
 
 const NotFound = () => {
-	const title = 'Страница не существует...:('
+	const title = 'Страница не существует... :('
 	return <Error title={title} image={image} />
 }
 
