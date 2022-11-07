@@ -2,7 +2,7 @@ import React from "react";
 import ContentLoader from "react-content-loader";
 //=========================================================================================================================
 
-const SushiSkeleton = (props) => (
+const SushiSkeleton: React.FC = () => (
 	<ContentLoader
 		speed={2}
 		width={300}

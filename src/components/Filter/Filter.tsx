@@ -4,7 +4,7 @@ import SearchFilter from "./SearchFilter";
 import "./Filter.scss";
 //=========================================================================================================================
 
-const Filter = () => {
+const Filter: React.FC = () => {
 
 	return (
 		<div className='filter'>

@@ -3,7 +3,7 @@ import Error from "../Error/Error";
 import image from "../../assets/not-found.png";
 //=========================================================================================================================
 
-const NotFound = () => {
+const NotFound: React.FC = () => {
 	const title = 'Страница не существует... :('
 	return <Error title={title} image={image} />
 }

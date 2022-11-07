@@ -8,7 +8,7 @@ import "./Cart.scss";
 import image from "../../assets/cart-empty.png"
 //=========================================================================================================================
 
-const Cart = () => {
+const Cart: React.FC = () => {
 	const dispatch = useDispatch();
 	const { items, totalPrice } = useSelector(state => state.cart);
 

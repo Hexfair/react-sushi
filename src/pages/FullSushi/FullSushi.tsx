@@ -11,7 +11,7 @@ import SushiSkeleton from "../../components/SushiItem/SushiSkeleton";
 import Error from "../Error/Error";
 //=========================================================================================================================
 
-const FullSushi = () => {
+const FullSushi: React.FC = () => {
 
 	const params = useParams();
 	const dispatch = useDispatch();
@@ -22,9 +22,9 @@ const FullSushi = () => {
 	/* Ищем, есть ли в редаксе суши с таким id */
 	const itemsFromSushies = useSelector((state) => state.sushi.items.filter(obj => Number(obj.id) === Number(params.id)));
 
-	const sushiesCount = itemsForCount.reduce((sum, obj) => (obj.count + sum), 0);
+	const sushiesCount = itemsForCount.reduce((sum: number, obj) => (obj.count + sum), 0);
 
-	const [activeType, setActiveType] = React.useState(0);
+	const [activeType, setActiveType] = React.useState<number>(0);
 
 	/* Если суши есть в редаксе, то берем данные из редакса, иначе делаем запрос данных на бэкенд */
 	React.useEffect(() => {
@@ -51,11 +51,7 @@ const FullSushi = () => {
 	const sushiPrice = activeType === 0 ? item.price : incPrice;
 
 	if (status === 'loading') {
-		return (
-			<div className='full-sushi-loading'>
-				<SushiSkeleton />
-			</div>
-		)
+		return <div className='full-sushi-loading'>	<SushiSkeleton />	</div>
 	}
 
 	if (status === 'error') {

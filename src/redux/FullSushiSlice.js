@@ -23,7 +23,7 @@ export const FullSushiSlice = createSlice({
 			state.item = action.payload;
 			state.status = 'success';
 		},
-		setStatus: (state, action) => {
+		setStatus: (state) => {
 			state.status = 'loading'
 		}
 	},

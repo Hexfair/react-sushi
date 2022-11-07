@@ -5,11 +5,11 @@ import { useDispatch, useSelector } from "react-redux";
 
 const filterData = ['Все', 'Классические', 'Острые', 'Запеченные', 'Эконом'];
 
-const CategoryFilter = (props) => {
+const CategoryFilter: React.FC = () => {
 	const dispatch = useDispatch();
 	const { categoryFilter } = useSelector(state => state.filter);
 
-	const onClickChangeFilter = (index) => {
+	const onClickChangeFilter = (index: number) => {
 		dispatch(setCategoryFilter(index));
 	}
 

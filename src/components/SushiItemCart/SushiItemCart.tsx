@@ -4,20 +4,30 @@ import { plusCartItem, minusCartItem, removeCartItem } from "../../redux/cartSli
 import { useDispatch } from "react-redux";
 //=========================================================================================================================
 
-const SushiItemCart = ({ id, imageUrl, title, sushiPrice, activeType, count }) => {
+type SushiItemCartProps = {
+	id: string;
+	imageUrl: string;
+	title: string;
+	sushiPrice: number;
+	activeType: number;
+	count: number;
+}
+
+
+const SushiItemCart: React.FC<SushiItemCartProps> = ({ id, imageUrl, title, sushiPrice, activeType, count }) => {
 	const dispatch = useDispatch();
 
-	const onClickPlusItem = (id, activeType) => {		// Добавить суши +
+	const onClickPlusItem = (id: string, activeType: number) => {		// Добавить суши +
 		const payload = { id, activeType }
 		dispatch(plusCartItem(payload))
 	}
 
-	const onClickMinusItem = (id, activeType) => {	// Убрать суши -
+	const onClickMinusItem = (id: string, activeType: number) => {	// Убрать суши -
 		const payload = { id, activeType }
 		dispatch(minusCartItem(payload))
 	}
 
-	const onClickRemoveItem = (id, activeType) => {		// Удалить суши Х
+	const onClickRemoveItem = (id: string, activeType: number) => {		// Удалить суши Х
 		const payload = { id, activeType }
 		dispatch(removeCartItem(payload))
 	}

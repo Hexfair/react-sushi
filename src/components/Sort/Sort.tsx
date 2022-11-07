@@ -5,28 +5,33 @@ import { setSortFilter } from "../../redux/filterSlice";
 import { useDispatch, useSelector } from "react-redux";
 //=========================================================================================================================
 
-export const sortData = [
+type SortDataType = {
+	name: string;
+	sortValue: string;
+}
+
+export const sortData: SortDataType[] = [
 	{ name: 'названию', sortValue: 'title' },
 	{ name: 'популярности', sortValue: 'popularity' },
 	{ name: 'цене', sortValue: 'price' },
 ];
 
 //=========================================================================================================================
-const Sort = () => {
+const Sort: React.FC = () => {
 	const dispatch = useDispatch();
 	const { sortFilter } = useSelector(state => state.filter);
 
 	const [openPopup, setOpenPopup] = React.useState(false);	// Отктрытие попапа
 	const onClickOpenPopup = () => { setOpenPopup(!openPopup) };
 
-	const onClickChangeSort = (obj) => {											// Диспатч выбранной сортировки в редакс и закрытие попапа
+	const onClickChangeSort = (obj: SortDataType) => {											// Диспатч выбранной сортировки в редакс и закрытие попапа
 		dispatch(setSortFilter(obj));
 		setOpenPopup(false);
 	}
 
-	const sortRef = React.useRef(null);		// Закрытие попапа при нажатии вне попапа
+	const sortRef = React.useRef<HTMLDivElement>(null);		// Закрытие попапа при нажатии вне попапа
 	React.useEffect(() => {
-		const handleClickOutside = (event) => {
+		const handleClickOutside = (event: any) => {
 			if (!event.path.includes(sortRef.current)) {
 				setOpenPopup(false);
 			}

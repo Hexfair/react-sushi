@@ -9,7 +9,7 @@ import NotFound from "./pages//NotFound/NotFound";
 import Home from "./pages/Home/Home";
 //=========================================================================================================================
 
-function App() {
+const App: React.FC = () => {
 	return (
 		<Routes>
 			<Route path="/" element={<MainLayout />}>

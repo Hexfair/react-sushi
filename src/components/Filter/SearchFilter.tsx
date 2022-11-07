@@ -4,24 +4,24 @@ import { setSearchFilter } from "../../redux/filterSlice";
 import debounce from "lodash.debounce";
 //=========================================================================================================================
 
-const SearchFilter = () => {
+const SearchFilter: React.FC = () => {
 	const dispatch = useDispatch();
 
 	const [value, setValue] = React.useState('');	// Локальный стейт инпута
 
-	const onChangeInput = (event) => {						// Отправка строки поиска в редакс и локальный стейт
+	const onChangeInput = (event: any) => {						// Отправка строки поиска в редакс и локальный стейт
 		updateSearchValue(event.target.value);
 		setValue(event.target.value);
 	}
 
 	const updateSearchValue = React.useCallback(	// Диспатч строки поиска в редакс, использование debounce 
-		debounce((str) => {
+		debounce((str: string) => {
 			dispatch(setSearchFilter(str))
 		}, 750),
 		[],
 	);
 
-	const inputRef = React.useRef(null);					// Логика для очистки инпута после нажатия на крестик и делаем сразу фокус на инпут
+	const inputRef = React.useRef<HTMLInputElement>(null);					// Логика для очистки инпута после нажатия на крестик и делаем сразу фокус на инпут
 	const onClickCloseIcon = () => {
 		dispatch(setSearchFilter(''));
 		setValue('');
@@ -43,7 +43,7 @@ const SearchFilter = () => {
 			}
 			{value &&
 				<svg onClick={onClickCloseIcon} className="search-filter__icon search-filter__icon--close" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" enableBackground="new 0 0 32 32" >
-					<path d="M17.459,16.014l8.239-8.194c0.395-0.391,0.395-1.024,0-1.414c-0.394-0.391-1.034-0.391-1.428,0  l-8.232,8.187L7.73,6.284c-0.394-0.395-1.034-0.395-1.428,0c-0.394,0.396-0.394,1.037,0,1.432l8.302,8.303l-8.332,8.286  c-0.394,0.391-0.394,1.024,0,1.414c0.394,0.391,1.034,0.391,1.428,0l8.325-8.279l8.275,8.276c0.394,0.395,1.034,0.395,1.428,0  c0.394-0.396,0.394-1.037,0-1.432L17.459,16.014z" fill="#121313" id="Close" />
+					<path d="M17.459,16.014l8.239-8.194c0.395-0.391,0.395-1.024,0-1.414c-0.394-0.391-1.034-0.391-1.428,0  l-8.232,8.187L7.73,6.284c-0.394-0.395-1.034-0.395-1.428,0c-0.394,0.396-0.394,1.037,0,1.432l8.302,8.303l-8.332,8.286  c-0.394,0.391-0.394,1.024,0,1.414c0.394,0.391,1.034,0.391,1.428,0l8.325-8.279l8.275,8.276c0.394,0.395,1.034,0.395,1.428,0  c0.394-0.396,0.394-1.037,0-1.432L17.459,16.014z" fill="#121313" />
 				</svg>
 			}
 		</div >

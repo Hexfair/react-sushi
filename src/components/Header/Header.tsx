@@ -5,7 +5,7 @@ import { Link, useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
 //=========================================================================================================================
 
-const Header = () => {
+const Header: React.FC = () => {
 
 	const { items, totalPrice } = useSelector(state => state.cart);
 

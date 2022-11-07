@@ -3,7 +3,12 @@ import { Link } from "react-router-dom";
 import "./Error.scss";
 //=========================================================================================================================
 
-const Error = ({ title, image }) => {
+type ErrorProps = {
+	title: string;
+	image: string;
+}
+
+const Error: React.FC<ErrorProps> = ({ title, image }) => {
 	return (
 		<div className="error">
 			<div className='error__title'>{title}</div>

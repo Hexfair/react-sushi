@@ -15,7 +15,7 @@ import { useWhyDidYouUpdate } from 'ahooks';
 
 //=========================================================================================================================
 
-const Home = () => {
+const Home: React.FC = () => {
 
 	const dispatch = useDispatch();
 	const { items, status } = useSelector(state => state.sushi);
@@ -62,7 +62,7 @@ const Home = () => {
 		isSearch.current = false;
 	}, [categoryFilter, sortFilter, searchFilter])
 
-	const sushies = items.map((obj, index) => (<SushiItem key={obj.id} {...obj} />))
+	const sushies = items.map((obj) => (<SushiItem key={obj.id} {...obj} />))
 	const skeletons = [...new Array(6)].map((_, index) => <SushiSkeleton key={index} />);
 
 	if (status === 'error') {

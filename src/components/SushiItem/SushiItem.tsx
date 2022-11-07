@@ -6,10 +6,18 @@ import { addCartItem } from "../../redux/cartSlice";
 import cn from 'classnames';
 //=========================================================================================================================
 
+type SushiItemProps = {
+	id: string;
+	imageUrl: string;
+	title: string;
+	price: number;
+	hot: boolean;
+}
+
 export const typeNames = ['6 шт.', '8 шт.'];
 
 //=========================================================================================================================
-const SushiItem = ({ id, imageUrl, title, price, category, popularity, hot }) => {
+const SushiItem: React.FC<SushiItemProps> = ({ id, imageUrl, title, price, hot }) => {
 	const dispatch = useDispatch();
 	const [activeType, setActiveType] = React.useState(0);
 
@@ -28,7 +36,7 @@ const SushiItem = ({ id, imageUrl, title, price, category, popularity, hot }) =>
 	const sushiPrice = activeType === 0 ? price : incPrice;
 
 	const itemsForCount = useSelector((state) => state.cart.items.filter(obj => obj.id === id));
-	const sushiesCount = itemsForCount.reduce((sum, obj) => (obj.count + sum), 0);
+	const sushiesCount = itemsForCount.reduce((sum: number, obj: any) => (obj.count + sum), 0);
 
 	return (
 		<div className='content__item item-content'>
