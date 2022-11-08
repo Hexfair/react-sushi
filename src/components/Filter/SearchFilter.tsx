@@ -1,6 +1,6 @@
 import React from "react";
 import { useDispatch } from "react-redux";
-import { setSearchFilter } from "../../redux/filterSlice";
+import { setSearchFilter } from "../../redux/filter/filterSlice";
 import debounce from "lodash.debounce";
 //=========================================================================================================================
 
@@ -9,7 +9,7 @@ const SearchFilter: React.FC = () => {
 
 	const [value, setValue] = React.useState('');	// Локальный стейт инпута
 
-	const onChangeInput = (event: any) => {						// Отправка строки поиска в редакс и локальный стейт
+	const onChangeInput = (event: React.ChangeEvent<HTMLInputElement>) => {						// Отправка строки поиска в редакс и локальный стейт
 		updateSearchValue(event.target.value);
 		setValue(event.target.value);
 	}

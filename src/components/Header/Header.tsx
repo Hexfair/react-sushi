@@ -3,11 +3,12 @@ import logo from "../../assets/logo.png";
 import "./Header.scss";
 import { Link, useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { RootState } from "../../redux/store";
 //=========================================================================================================================
 
 const Header: React.FC = () => {
 
-	const { items, totalPrice } = useSelector(state => state.cart);
+	const { items, totalPrice } = useSelector((state: RootState) => state.cart);
 
 	// Сохранение суши в localStorage
 	const isMounted = React.useRef(false);

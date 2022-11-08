@@ -1,14 +1,11 @@
 import React from "react";
 import "./Sort.scss";
 import cn from 'classnames';
-import { setSortFilter } from "../../redux/filterSlice";
+import { setSortFilter } from "../../redux/filter/filterSlice";
 import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../../redux/store";
+import { SortDataType } from "../../redux/filter/types";
 //=========================================================================================================================
-
-type SortDataType = {
-	name: string;
-	sortValue: string;
-}
 
 export const sortData: SortDataType[] = [
 	{ name: 'названию', sortValue: 'title' },
@@ -19,7 +16,7 @@ export const sortData: SortDataType[] = [
 //=========================================================================================================================
 const Sort: React.FC = () => {
 	const dispatch = useDispatch();
-	const { sortFilter } = useSelector(state => state.filter);
+	const { sortFilter } = useSelector((state: RootState) => state.filter);
 
 	const [openPopup, setOpenPopup] = React.useState(false);	// Отктрытие попапа
 	const onClickOpenPopup = () => { setOpenPopup(!openPopup) };
@@ -31,8 +28,9 @@ const Sort: React.FC = () => {
 
 	const sortRef = React.useRef<HTMLDivElement>(null);		// Закрытие попапа при нажатии вне попапа
 	React.useEffect(() => {
-		const handleClickOutside = (event: any) => {
-			if (!event.path.includes(sortRef.current)) {
+		const handleClickOutside = (event: MouseEvent) => {
+			const _event = event as MouseEvent & { path: Node[] }			// Лайфхак для того, чтобы не подчеркивал path
+			if (sortRef.current && !_event.path.includes(sortRef.current)) {
 				setOpenPopup(false);
 			}
 		}

@@ -1,17 +1,9 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import axios from 'axios';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { fetchSushies } from './asyncActions';
+import { SushiItemType, SushiSliceInt } from './types';
 //=========================================================================================================================
 
-export const fetchSushies = createAsyncThunk(
-	'sushi/fetchSushiesStatus',
-	async (params) => {
-		const { categoryQuery, sortQuery, searchQuery } = params;
-		const response = await axios.get(`https://6359b1f538725a1746b65927.mockapi.io/sushi?${categoryQuery}${sortQuery}${searchQuery}`);
-		return response.data
-	}
-)
-
-const initialState = {
+const initialState: SushiSliceInt = {
 	items: [],
 	status: 'loading',
 }
@@ -20,7 +12,7 @@ export const sushiSlice = createSlice({
 	name: 'sushi',
 	initialState,
 	reducers: {
-		setItems: (state, action) => {
+		setItems: (state, action: PayloadAction<SushiItemType[]>) => {
 			state.items = action.payload
 		},
 	},

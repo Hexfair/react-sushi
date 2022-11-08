@@ -1,34 +1,25 @@
 import React from "react";
 import { typeNames } from "../SushiItem/SushiItem";
-import { plusCartItem, minusCartItem, removeCartItem } from "../../redux/cartSlice";
+import { plusCartItem, minusCartItem, removeCartItem } from "../../redux/cart/cartSlice";
 import { useDispatch } from "react-redux";
+import { PayloadItem, SushiItemCartProps } from "../../redux/cart/types";
 //=========================================================================================================================
-
-type SushiItemCartProps = {
-	id: string;
-	imageUrl: string;
-	title: string;
-	sushiPrice: number;
-	activeType: number;
-	count: number;
-}
-
 
 const SushiItemCart: React.FC<SushiItemCartProps> = ({ id, imageUrl, title, sushiPrice, activeType, count }) => {
 	const dispatch = useDispatch();
 
 	const onClickPlusItem = (id: string, activeType: number) => {		// Добавить суши +
-		const payload = { id, activeType }
+		const payload: PayloadItem = { id, activeType }
 		dispatch(plusCartItem(payload))
 	}
 
 	const onClickMinusItem = (id: string, activeType: number) => {	// Убрать суши -
-		const payload = { id, activeType }
+		const payload: PayloadItem = { id, activeType }
 		dispatch(minusCartItem(payload))
 	}
 
 	const onClickRemoveItem = (id: string, activeType: number) => {		// Удалить суши Х
-		const payload = { id, activeType }
+		const payload: PayloadItem = { id, activeType }
 		dispatch(removeCartItem(payload))
 	}
 

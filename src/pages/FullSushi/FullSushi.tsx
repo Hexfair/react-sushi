@@ -1,27 +1,32 @@
 import React from "react";
 import "./FullSushi.scss";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import { typeNames } from "../../components/SushiItem/SushiItem";
 import cn from "classnames";
-import { fetchFullSushi, setItem, setStatus } from "../../redux/FullSushiSlice";
-import { addCartItem } from "../../redux/cartSlice";
+import { setItem, setStatus } from "../../redux/fullSushi/FullSushiSlice";
+import { addCartItem } from "../../redux/cart/cartSlice";
 import { useParams, Link } from "react-router-dom";
 import image from "../../assets/full-sushi-empty.png";
 import SushiSkeleton from "../../components/SushiItem/SushiSkeleton";
 import Error from "../Error/Error";
+import { RootState, useAppDispatch } from "../../redux/store";
+import { fetchFullSushi } from "../../redux/fullSushi/asyncActions";
+import { CartItems } from "../../redux/cart/types";
 //=========================================================================================================================
 
 const FullSushi: React.FC = () => {
 
-	const params = useParams();
-	const dispatch = useDispatch();
+	const params = useParams<string>();
+	const paramsId = params.id ? params.id : "";
 
-	const { item, status } = useSelector(state => state.fullSushi);
-	const itemsForCount = useSelector((state) => state.cart.items.filter(obj => obj.id === item.id));
+	const dispatch = useAppDispatch();
+
+	const { item, status } = useSelector((state: RootState) => state.fullSushi);
+	const { id, imageUrl, title, price } = item;
+	const itemsForCount = useSelector((state: RootState) => state.cart.items.filter(obj => obj.id === id));
 
 	/* Ищем, есть ли в редаксе суши с таким id */
-	const itemsFromSushies = useSelector((state) => state.sushi.items.filter(obj => Number(obj.id) === Number(params.id)));
-
+	const itemsFromSushies = useSelector((state: RootState) => state.sushi.items.filter(obj => obj.id === paramsId));
 	const sushiesCount = itemsForCount.reduce((sum: number, obj) => (obj.count + sum), 0);
 
 	const [activeType, setActiveType] = React.useState<number>(0);
@@ -29,26 +34,23 @@ const FullSushi: React.FC = () => {
 	/* Если суши есть в редаксе, то берем данные из редакса, иначе делаем запрос данных на бэкенд */
 	React.useEffect(() => {
 		dispatch(setStatus());
-		function getSushi() {
-			dispatch(fetchFullSushi(params.id));
-			console.log('из бэкенда')
-		}
-		itemsFromSushies.length ? dispatch(setItem(itemsFromSushies[0])) : getSushi();
+		itemsFromSushies.length ? dispatch(setItem(itemsFromSushies[0])) : dispatch(fetchFullSushi(paramsId));
 	}, [])
 
 	const onClickAddItem = () => {
-		const payload = {
-			id: item.id,
-			imageUrl: item.imageUrl,
-			title: item.title,
+		const payload: CartItems = {
+			id,
+			imageUrl,
+			title,
 			sushiPrice,
-			activeType
+			activeType,
+			count: 0,
 		};
 		dispatch(addCartItem(payload))
 	}
 
-	const incPrice = Math.round(item.price * 1.3);
-	const sushiPrice = activeType === 0 ? item.price : incPrice;
+	const incPrice = Math.round(price * 1.3);
+	const sushiPrice = activeType === 0 ? price : incPrice;
 
 	if (status === 'loading') {
 		return <div className='full-sushi-loading'>	<SushiSkeleton />	</div>

@@ -1,13 +1,14 @@
 import React from "react";
-import { setCategoryFilter } from "../../redux/filterSlice";
+import { setCategoryFilter } from "../../redux/filter/filterSlice";
 import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../../redux/store";
 //=========================================================================================================================
 
 const filterData = ['Все', 'Классические', 'Острые', 'Запеченные', 'Эконом'];
 
 const CategoryFilter: React.FC = () => {
 	const dispatch = useDispatch();
-	const { categoryFilter } = useSelector(state => state.filter);
+	const { categoryFilter } = useSelector((state: RootState) => state.filter);
 
 	const onClickChangeFilter = (index: number) => {
 		dispatch(setCategoryFilter(index));

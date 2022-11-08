@@ -2,17 +2,11 @@ import React from "react";
 import "./SushiItem.scss";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { addCartItem } from "../../redux/cartSlice";
+import { addCartItem } from "../../redux/cart/cartSlice";
 import cn from 'classnames';
+import { RootState } from "../../redux/store";
+import { SushiItemProps } from "../../redux/sushi/types";
 //=========================================================================================================================
-
-type SushiItemProps = {
-	id: string;
-	imageUrl: string;
-	title: string;
-	price: number;
-	hot: boolean;
-}
 
 export const typeNames = ['6 шт.', '8 шт.'];
 
@@ -27,7 +21,8 @@ const SushiItem: React.FC<SushiItemProps> = ({ id, imageUrl, title, price, hot }
 			imageUrl,
 			title,
 			sushiPrice,
-			activeType
+			activeType,
+			count: 0,
 		};
 		dispatch(addCartItem(payload))
 	}
@@ -35,8 +30,8 @@ const SushiItem: React.FC<SushiItemProps> = ({ id, imageUrl, title, price, hot }
 	const incPrice = Math.round(price * 1.3);
 	const sushiPrice = activeType === 0 ? price : incPrice;
 
-	const itemsForCount = useSelector((state) => state.cart.items.filter(obj => obj.id === id));
-	const sushiesCount = itemsForCount.reduce((sum: number, obj: any) => (obj.count + sum), 0);
+	const itemsForCount = useSelector((state: RootState) => state.cart.items.filter(obj => obj.id === id));
+	const sushiesCount = itemsForCount.reduce((sum: number, obj) => (obj.count + sum), 0);
 
 	return (
 		<div className='content__item item-content'>

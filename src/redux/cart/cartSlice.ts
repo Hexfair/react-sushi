@@ -1,11 +1,12 @@
-import { createSlice } from '@reduxjs/toolkit';
-import { calcTotalPrice } from '../utils/calcTotalPrice';
-import { getCartFromLS } from '../utils/getCartFromLS';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { calcTotalPrice } from '../../utils/calcTotalPrice';
+import { getCartFromLS } from '../../utils/getCartFromLS';
+import { CartItems, CartSliceInt, PayloadItem } from './types';
 //=========================================================================================================================
 
 const { items, totalPrice } = getCartFromLS();
 
-const initialState = {
+const initialState: CartSliceInt = {
 	items,
 	totalPrice,
 }
@@ -14,7 +15,7 @@ export const cartSlice = createSlice({
 	name: 'cart',
 	initialState,
 	reducers: {
-		addCartItem(state, action) {
+		addCartItem(state, action: PayloadAction<CartItems>) {
 			const findItem = state.items.find(obj => obj.id === action.payload.id && obj.activeType === action.payload.activeType);
 			if (findItem) {
 				findItem.count++;
@@ -23,21 +24,21 @@ export const cartSlice = createSlice({
 			}
 			state.totalPrice = calcTotalPrice(state.items);
 		},
-		plusCartItem(state, action) {
+		plusCartItem(state, action: PayloadAction<PayloadItem>) {
 			const findItem = state.items.find(obj => obj.id === action.payload.id && obj.activeType === action.payload.activeType);
 			if (findItem) {
 				findItem.count++;
 			}
 			state.totalPrice = calcTotalPrice(state.items);
 		},
-		minusCartItem(state, action) {
+		minusCartItem(state, action: PayloadAction<PayloadItem>) {
 			const findItem = state.items.find(obj => obj.id === action.payload.id && obj.activeType === action.payload.activeType);
 			if (findItem) {
 				findItem.count--;
 			}
 			state.totalPrice = calcTotalPrice(state.items);
 		},
-		removeCartItem(state, action) {
+		removeCartItem(state, action: PayloadAction<PayloadItem>) {
 			state.items = state.items.filter(obj => !(obj.id === action.payload.id && obj.activeType === action.payload.activeType));
 			state.totalPrice = calcTotalPrice(state.items);
 		},

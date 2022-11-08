@@ -1,16 +1,17 @@
 import React from "react";
 import SushiItemCart from "../../components/SushiItemCart/SushiItemCart";
 import { useSelector, useDispatch } from "react-redux";
-import { clearCart } from "../../redux/cartSlice";
+import { clearCart } from "../../redux/cart/cartSlice";
 import Error from "../Error/Error";
 import { Link } from "react-router-dom";
 import "./Cart.scss";
 import image from "../../assets/cart-empty.png"
+import { RootState } from "../../redux/store";
 //=========================================================================================================================
 
 const Cart: React.FC = () => {
 	const dispatch = useDispatch();
-	const { items, totalPrice } = useSelector(state => state.cart);
+	const { items, totalPrice } = useSelector((state: RootState) => state.cart);
 
 	const onClickClearCart = () => {			// Очистка корзины
 		dispatch(clearCart());

@@ -5,21 +5,23 @@ import Filter from "../../components/Filter/Filter";
 import Sort from "../../components/Sort/Sort";
 import SushiItem from "../../components/SushiItem/SushiItem";
 import SushiSkeleton from "../../components/SushiItem/SushiSkeleton";
-import { useDispatch, useSelector } from "react-redux";
-import { fetchSushies } from "../../redux/sushiSlice";
-import { setAllFilter } from "../../redux/filterSlice";
+import { useSelector } from "react-redux";
+import { setAllFilter } from "../../redux/filter/filterSlice";
 import { sortData } from "../../components/Sort/Sort";
 import image from "../../assets/home-error.png";
 import Error from "../Error/Error";
-import { useWhyDidYouUpdate } from 'ahooks';
+import { RootState, useAppDispatch } from "../../redux/store";
+import { SearchSushiParams } from "../../redux/filter/types";
+import { fetchSushies } from "../../redux/sushi/asyncActions";
+import { SushiItemType } from "../../redux/sushi/types";
 
 //=========================================================================================================================
 
 const Home: React.FC = () => {
 
-	const dispatch = useDispatch();
-	const { items, status } = useSelector(state => state.sushi);
-	const { sortFilter, searchFilter, categoryFilter } = useSelector(state => state.filter);
+	const dispatch = useAppDispatch();
+	const { items, status } = useSelector((state: RootState) => state.sushi);
+	const { sortFilter, searchFilter, categoryFilter } = useSelector((state: RootState) => state.filter);
 
 	const isSearch = React.useRef(false);
 	const isMounted = React.useRef(false);
@@ -40,11 +42,12 @@ const Home: React.FC = () => {
 	/* Получаем параметры из строки браузера (сортировка, фильтрация) и диспатчим их в редакс */
 	React.useEffect(() => {
 		if (window.location.search) {
-			const params = qs.parse(window.location.search.substring(1));
+			const params = qs.parse(window.location.search.substring(1)) as unknown as SearchSushiParams;
 			const sort = sortData.find(obj => obj.sortValue === params.sortProperty)
 			dispatch(setAllFilter({
-				...params,
-				sort
+				categoryFilter: params.categoryProperty || 0,
+				sortFilter: sort || sortData[0],
+				searchFilter: params.searchProperty || '',
 			}))
 			isSearch.current = true;
 		}
@@ -62,14 +65,13 @@ const Home: React.FC = () => {
 		isSearch.current = false;
 	}, [categoryFilter, sortFilter, searchFilter])
 
-	const sushies = items.map((obj) => (<SushiItem key={obj.id} {...obj} />))
+	const sushies = items.map((obj: SushiItemType) => (<SushiItem key={obj.id} {...obj} />))
 	const skeletons = [...new Array(6)].map((_, index) => <SushiSkeleton key={index} />);
 
 	if (status === 'error') {
 		const title = 'Ошибка загрузки данных с сервера... :('
 		return <Error title={title} image={image} />
 	}
-
 
 	return (
 		<>
