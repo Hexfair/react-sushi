@@ -2,6 +2,7 @@
 	"name": "react-sushi",
 	"version": "0.1.0",
 	"private": true,
+	"homepage": "https://hexfair.github.io/react-sushi",
 	"dependencies": {
 		"@reduxjs/toolkit": "^1.8.6",
 		"@testing-library/jest-dom": "^5.16.5",
@@ -26,8 +27,7 @@
 		"react-scripts": "5.0.1",
 		"sass": "^1.55.0",
 		"typescript": "^4.8.4",
-		"web-vitals": "^2.1.4",
-		"homepage": "https://hexfair.github.io/react-sushi/"
+		"web-vitals": "^2.1.4"
 	},
 	"scripts": {
 		"start": "react-scripts start",
