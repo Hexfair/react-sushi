@@ -1,0 +1,17 @@
+{
+  "files": {
+    "main.css": "/static/css/main.be8cd402.css",
+    "main.js": "/static/js/main.d39c7693.js",
+    "static/media/cart-empty.png": "/static/media/cart-empty.bb857d30d47199a5d09e.png",
+    "static/media/full-sushi-empty.png": "/static/media/full-sushi-empty.d4e75dad6461412b01a0.png",
+    "static/media/not-found.png": "/static/media/not-found.cf09621bde16fa152036.png",
+    "static/media/home-error.png": "/static/media/home-error.2ce445a6e768b1168409.png",
+    "index.html": "/index.html",
+    "main.be8cd402.css.map": "/static/css/main.be8cd402.css.map",
+    "main.d39c7693.js.map": "/static/js/main.d39c7693.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.be8cd402.css",
+    "static/js/main.d39c7693.js"
+  ]
+}
