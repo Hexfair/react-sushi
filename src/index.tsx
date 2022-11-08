@@ -11,7 +11,7 @@ const rootElem = document.getElementById('root');
 if (rootElem) {
 	const root = ReactDOM.createRoot(rootElem);
 	root.render(
-		<HashRouter basename={process.env.PUBLIC_URL}>
+		<HashRouter>
 			<Provider store={store}>
 				<App />
 			</Provider>
