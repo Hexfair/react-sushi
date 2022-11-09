@@ -6,12 +6,12 @@ import Error from "../Error/Error";
 import { Link } from "react-router-dom";
 import "./Cart.scss";
 import image from "../../assets/cart-empty.png"
-import { RootState } from "../../redux/store";
+import { selectorCartState } from "../../redux/cart/selectors";
 //=========================================================================================================================
 
 const Cart: React.FC = () => {
 	const dispatch = useDispatch();
-	const { items, totalPrice } = useSelector((state: RootState) => state.cart);
+	const { items, totalPrice } = useSelector(selectorCartState);
 
 	const onClickClearCart = () => {			// Очистка корзины
 		dispatch(clearCart());

@@ -4,8 +4,8 @@ import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { addCartItem } from "../../redux/cart/cartSlice";
 import cn from 'classnames';
-import { RootState } from "../../redux/store";
 import { SushiItemProps } from "../../redux/sushi/types";
+import { selectorCartItemById } from "../../redux/cart/selectors";
 //=========================================================================================================================
 
 export const typeNames = ['6 шт.', '8 шт.'];
@@ -30,7 +30,7 @@ const SushiItem: React.FC<SushiItemProps> = ({ id, imageUrl, title, price, hot }
 	const incPrice = Math.round(price * 1.3);
 	const sushiPrice = activeType === 0 ? price : incPrice;
 
-	const itemsForCount = useSelector((state: RootState) => state.cart.items.filter(obj => obj.id === id));
+	const itemsForCount = useSelector(selectorCartItemById(id));
 	const sushiesCount = itemsForCount.reduce((sum: number, obj) => (obj.count + sum), 0);
 
 	return (

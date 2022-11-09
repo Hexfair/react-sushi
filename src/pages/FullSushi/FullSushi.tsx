@@ -9,9 +9,12 @@ import { useParams, Link } from "react-router-dom";
 import image from "../../assets/full-sushi-empty.png";
 import SushiSkeleton from "../../components/SushiItem/SushiSkeleton";
 import Error from "../Error/Error";
-import { RootState, useAppDispatch } from "../../redux/store";
+import { useAppDispatch } from "../../redux/store";
 import { fetchFullSushi } from "../../redux/fullSushi/asyncActions";
 import { CartItems } from "../../redux/cart/types";
+import { selectorFullSushiState } from "../../redux/fullSushi/selectors";
+import { selectorCartItemById } from "../../redux/cart/selectors";
+import { selectorSushiItemById } from "../../redux/sushi/selectors";
 //=========================================================================================================================
 
 const FullSushi: React.FC = () => {
@@ -21,12 +24,12 @@ const FullSushi: React.FC = () => {
 
 	const dispatch = useAppDispatch();
 
-	const { item, status } = useSelector((state: RootState) => state.fullSushi);
+	const { item, status } = useSelector(selectorFullSushiState);
 	const { id, imageUrl, title, price } = item;
-	const itemsForCount = useSelector((state: RootState) => state.cart.items.filter(obj => obj.id === id));
+	const itemsForCount = useSelector(selectorCartItemById(id));
 
 	/* Ищем, есть ли в редаксе суши с таким id */
-	const itemsFromSushies = useSelector((state: RootState) => state.sushi.items.filter(obj => obj.id === paramsId));
+	const itemsFromSushies = useSelector(selectorSushiItemById(paramsId));
 	const sushiesCount = itemsForCount.reduce((sum: number, obj) => (obj.count + sum), 0);
 
 	const [activeType, setActiveType] = React.useState<number>(0);

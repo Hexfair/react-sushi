@@ -10,18 +10,20 @@ import { setAllFilter } from "../../redux/filter/filterSlice";
 import { sortData } from "../../components/Sort/Sort";
 import image from "../../assets/home-error.png";
 import Error from "../Error/Error";
-import { RootState, useAppDispatch } from "../../redux/store";
+import { useAppDispatch } from "../../redux/store";
 import { SearchSushiParams } from "../../redux/filter/types";
 import { fetchSushies } from "../../redux/sushi/asyncActions";
 import { SushiItemType } from "../../redux/sushi/types";
+import { selectorSushiState } from "../../redux/sushi/selectors";
+import { selectorFilterState } from "../../redux/filter/selectors";
 
 //=========================================================================================================================
 
 const Home: React.FC = () => {
 
 	const dispatch = useAppDispatch();
-	const { items, status } = useSelector((state: RootState) => state.sushi);
-	const { sortFilter, searchFilter, categoryFilter } = useSelector((state: RootState) => state.filter);
+	const { items, status } = useSelector(selectorSushiState);
+	const { sortFilter, searchFilter, categoryFilter } = useSelector(selectorFilterState);
 
 	const isSearch = React.useRef(false);
 	const isMounted = React.useRef(false);

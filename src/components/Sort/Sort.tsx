@@ -3,8 +3,8 @@ import "./Sort.scss";
 import cn from 'classnames';
 import { setSortFilter } from "../../redux/filter/filterSlice";
 import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "../../redux/store";
 import { SortDataType } from "../../redux/filter/types";
+import { selectorFilterState } from "../../redux/filter/selectors";
 //=========================================================================================================================
 
 export const sortData: SortDataType[] = [
@@ -16,7 +16,7 @@ export const sortData: SortDataType[] = [
 //=========================================================================================================================
 const Sort: React.FC = () => {
 	const dispatch = useDispatch();
-	const { sortFilter } = useSelector((state: RootState) => state.filter);
+	const { sortFilter } = useSelector(selectorFilterState);
 
 	const [openPopup, setOpenPopup] = React.useState(false);	// Отктрытие попапа
 	const onClickOpenPopup = () => { setOpenPopup(!openPopup) };
