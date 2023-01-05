@@ -1,6 +1,6 @@
 Первый проект by HexFair: === React-Sushi ===
 
-Применяемый стек: React, Redux-Toolkit, TypeScript, Axios, CSS-module, react-content-loader.
+Применяемый стек: React, Redux-Toolkit, TypeScript, Axios, react-content-loader.
 
 В качестве базы данных использован собственный json с бесплатного https://mockapi.io/.
 
