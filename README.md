@@ -1,4 +1,4 @@
-Первый проект by HexFair: === React-Sushi ===
+Первый учебный проект by HexFair: === React-Sushi ===
 
 Применяемый стек: React, Redux-Toolkit, TypeScript, Axios, react-content-loader.
 
